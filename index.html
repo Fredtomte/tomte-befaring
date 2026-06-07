@@ -13,7 +13,7 @@
     input,textarea,select{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit;background:white} textarea{min-height:95px;resize:vertical}
     .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{border:0;border-radius:12px;padding:12px 14px;font-weight:800;background:var(--blue);color:white;width:100%;cursor:pointer}.btn.secondary{background:white;color:var(--blue);border:1px solid var(--blue)}.btn.dark{background:var(--navy)}.btn.red{background:var(--red)}
     .buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.tabs{display:flex;gap:8px;overflow:auto;padding-bottom:12px}.tab{white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:white;color:#475467;font-weight:800}.tab.active{background:var(--blue);color:white;border-color:var(--blue)}
-    .hidden{display:none!important}.ok{background:#ecfdf3;border:1px solid #bbf7d0;color:#166534;padding:10px;border-radius:12px;font-size:13px}.warn{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:10px;border-radius:12px;font-size:13px}
+    .hidden{display:none!important}.calcbox{background:#eef4ff;border:1px solid #c7d7fe;border-radius:14px;padding:14px;margin-top:12px}.calcbox strong{font-size:22px;color:var(--navy)}.bad{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:10px;border-radius:12px;font-size:13px}.ok{background:#ecfdf3;border:1px solid #bbf7d0;color:#166534;padding:10px;border-radius:12px;font-size:13px}.warn{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:10px;border-radius:12px;font-size:13px}
     .photo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}.photo{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:white;position:relative}.photo img{width:100%;height:120px;object-fit:cover;display:block}.photo .cap{padding:6px;font-size:12px;color:#475467}.photo button{position:absolute;right:5px;top:5px;background:rgba(0,0,0,.7);color:white;border:0;border-radius:50%;width:26px;height:26px;font-weight:900}
     .bottom{position:fixed;left:0;right:0;bottom:0;background:white;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));z-index:9}.bottom button{border:0;border-radius:12px;padding:10px 6px;background:#eef2f7;color:var(--navy);font-weight:800}
     @media(max-width:560px){.row{grid-template-columns:1fr}}
@@ -29,7 +29,8 @@
     <button class="tab" data-go="bilder">3 Bilder</button>
     <button class="tab" data-go="tale">4 Tale</button>
     <button class="tab" data-go="befaring">5 Befaring</button>
-    <button class="tab" data-go="utdata">6 Send</button>
+    <button class="tab" data-go="kalkyle">6 Kalkyle</button>
+    <button class="tab" data-go="utdata">7 Send</button>
   </div>
 
   <section id="screen-import" class="screen">
@@ -107,15 +108,50 @@
     </div>
   </section>
 
+
+  <section id="screen-kalkyle" class="screen hidden">
+    <div class="card">
+      <h2>Enkel kalkyle</h2>
+      <p class="small">Dette er kun grunnlag til Fredrik. Endelig pris lages i Tripletex.</p>
+
+      <div class="row">
+        <div><label>Timer</label><input type="number" data-bind="estimate.hours" placeholder="0"></div>
+        <div><label>Timepris eks. mva</label><input type="number" data-bind="estimate.hourRate" readonly></div>
+      </div>
+
+      <div class="row">
+        <div><label>Materialer / eksterne kostnader eks. mva</label><input type="number" data-bind="estimate.materials" placeholder="0"></div>
+        <div><label>Bil / transport eks. mva</label><input type="number" data-bind="estimate.transport" placeholder="0"></div>
+      </div>
+
+      <div class="row">
+        <div><label>Annet eks. mva</label><input type="number" data-bind="estimate.other" placeholder="0"></div>
+        <div><label>DB %</label><input type="number" data-bind="estimate.dbPercent" placeholder="25"></div>
+      </div>
+
+      <div id="dbWarning" class="ok">DB er innenfor normalområdet.</div>
+
+      <div class="calcbox">
+        <p class="small">Arbeid</p><strong id="workSum">0 kr</strong>
+        <p class="small">Grunnlag eks. mva</p><strong id="baseSum">0 kr</strong>
+        <p class="small">DB / fortjeneste</p><strong id="dbSum">0 kr</strong>
+        <p class="small">Forslag pris eks. mva</p><strong id="priceEx">0 kr</strong>
+        <p class="small">Forslag pris inkl. mva</p><strong id="priceInc">0 kr</strong>
+      </div>
+
+      <button class="btn" data-go="utdata" style="margin-top:12px">Videre til sending</button>
+    </div>
+  </section>
+
   <section id="screen-utdata" class="screen hidden">
     <div class="card">
-      <h2>Tilbudsgrunnlag og Drive</h2>
+      <h2>Tilbudsgrunnlag og godkjenning</h2>
       <button class="btn" id="makeOfferBtn">Lag tilbudsgrunnlag</button>
-      <label>Tekst til Tripletex / Fredrik</label>
+      <label>Tekst til Fredrik / Tripletex</label>
       <textarea id="offerText" style="min-height:260px"></textarea>
       <div class="buttons">
         <button class="btn secondary" id="copyBtn">Kopier tekst</button>
-        <button class="btn dark" id="sendDriveBtn">Send til Drive</button>
+        <button class="btn dark" id="sendDriveBtn">Send til Fredrik</button>
       </div>
       <div id="statusBox" class="ok" style="margin-top:12px">Klar.</div>
     </div>
@@ -124,7 +160,7 @@
 
 <div class="bottom">
   <button data-go="import">Import</button>
-  <button data-go="tale">Tale</button>
+  <button data-go="kalkyle">Kalkyle</button>
   <button data-go="utdata">Send</button>
 </div>
 
@@ -142,6 +178,7 @@ function emptyState(){
     job:{title:"",type:"",description:""},
     inspection:{date:new Date().toISOString().slice(0,10),responsible:"Eirik",observations:"",measures:"",assessment:"",risks:""},
     voice:{consent:false,transcript:""},
+    estimate:{hours:"",hourRate:950,materials:"",transport:"",other:"",dbPercent:25},
     images:[],
     output:{offerText:""}
   };
@@ -159,7 +196,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-go]"); if(
 
 function getPath(o,p){return p.split(".").reduce((a,k)=>a?a[k]:"",o)}
 function setPath(o,p,v){const a=p.split(".");let c=o;for(let i=0;i<a.length-1;i++)c=c[a[i]];c[a[a.length-1]]=v}
-document.addEventListener("input",e=>{if(e.target.dataset.bind){setPath(state,e.target.dataset.bind,e.target.value);saveLocal();}});
+document.addEventListener("input",e=>{if(e.target.dataset.bind){setPath(state,e.target.dataset.bind,e.target.value);saveLocal();updateCalc();}});
 function fill(){document.querySelectorAll("[data-bind]").forEach(el=>{el.value=getPath(state,el.dataset.bind)||""});document.getElementById("voiceTranscript").value=state.voice.transcript||"";document.getElementById("voiceConsent").checked=!!state.voice.consent;document.getElementById("offerText").value=state.output.offerText||""}
 
 function parseImport(text){
@@ -210,7 +247,40 @@ function setupVoice(){
 document.getElementById("voiceToObsBtn").onclick=()=>{state.inspection.observations+=(state.inspection.observations?"\n\n":"")+"Taleloggen:\n"+state.voice.transcript;saveLocal();go("befaring")};
 document.getElementById("voiceToRiskBtn").onclick=()=>{state.inspection.risks+=(state.inspection.risks?"\n\n":"")+"Forbehold fra samtale:\n"+state.voice.transcript;saveLocal();go("befaring")};
 
+
+function n(v){const x=parseFloat(String(v||"0").replace(",","."));return Number.isFinite(x)?x:0}
+function kr(v){return Math.round(v).toLocaleString("nb-NO")+" kr"}
+function roundUp(v,step=100){return Math.ceil(v/step)*step}
+function calc(){
+  if(!state.estimate) state.estimate={hours:"",hourRate:950,materials:"",transport:"",other:"",dbPercent:25};
+  state.estimate.hourRate=950;
+  const e=state.estimate;
+  const work=n(e.hours)*950;
+  const base=work+n(e.materials)+n(e.transport)+n(e.other);
+  const db=base*n(e.dbPercent)/100;
+  const priceEx=base+db;
+  const priceInc=priceEx*1.25;
+  return {work,base,db,priceEx,priceInc,roundedEx:roundUp(priceEx,100),roundedInc:roundUp(priceInc,100)};
+}
+function updateCalc(){
+  const c=calc();
+  if(document.getElementById("workSum")) {
+    workSum.textContent=kr(c.work);
+    baseSum.textContent=kr(c.base);
+    dbSum.textContent=kr(c.db);
+    priceEx.textContent=kr(c.roundedEx);
+    priceInc.textContent=kr(c.roundedInc);
+    const dbp=n(state.estimate.dbPercent);
+    const w=document.getElementById("dbWarning");
+    if(dbp<20){w.className="bad";w.textContent="DB under 20 %. Må kontrolleres av Fredrik før tilbud."}
+    else if(dbp<=30){w.className="ok";w.textContent="DB er ok. Normal lav/medium margin."}
+    else if(dbp<=40){w.className="ok";w.textContent="DB er bra. Normal høyere margin."}
+    else {w.className="warn";w.textContent="DB over 40 %. Høy margin, vurder om pris er realistisk."}
+  }
+}
+
 function makeOffer(){
+  const c=calc();
   const lines=[
     "Vi viser til befaring og oversender grunnlag for tilbud.",
     "",
@@ -227,13 +297,25 @@ function makeOffer(){
     "Mål/mengder:",
     state.inspection.measures,
     "",
+    "Enkel kalkyle:",
+    "- Timer: "+(state.estimate.hours||0)+" t",
+    "- Timepris: 950 kr eks. mva",
+    "- Arbeid: "+kr(c.work),
+    "- Materialer/eksterne kostnader: "+kr(n(state.estimate.materials)),
+    "- Bil/transport: "+kr(n(state.estimate.transport)),
+    "- Annet: "+kr(n(state.estimate.other)),
+    "- Grunnlag eks. mva: "+kr(c.base),
+    "- DB "+(state.estimate.dbPercent||0)+" %: "+kr(c.db),
+    "- Forslag eks. mva: "+kr(c.roundedEx),
+    "- Forslag inkl. mva: "+kr(c.roundedInc),
+    "",
     "Ikke inkludert / forbehold:",
     state.inspection.risks || "- Skjulte skader og arbeider utenfor beskrevet omfang er ikke inkludert.",
     "",
     "Talelogg:",
     state.voice.transcript,
     "",
-    "Merk: Endelig pris, betalingsplan og avtale kontrolleres av Fredrik før tilbud sendes i Tripletex."
+    "Merk: Dette er ikke endelig tilbud. Fredrik kontrollerer pris, betalingsplan og avtale før tilbud sendes i Tripletex."
   ];
   state.output.offerText=lines.join("\n"); saveLocal(); fill();
 }
@@ -244,21 +326,21 @@ async function sendToDrive(){
   if(BACKEND_URL.includes("LIM_INN")){alert("Du må lime inn Web App URL i index.html først.");return}
   if(!state.customer.address){alert("Mangler adresse.");return}
   makeOffer();
-  statusBox.textContent="Sender til Drive...";
+  statusBox.textContent="Sender til Fredrik...";
   try{
     const r=await fetch(BACKEND_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({token:BACKEND_TOKEN,data:state})});
     const res=await r.json();
     if(!res.ok) throw new Error(res.error||"Ukjent feil");
-    statusBox.textContent="Sendt til Drive: "+res.folderName;
+    statusBox.textContent="Sendt til Fredrik: "+res.folderName;
     window.open(res.folderUrl,"_blank");
   }catch(err){statusBox.textContent="Feil: "+err.message;alert("Feil ved sending: "+err.message)}
 }
 document.getElementById("sendDriveBtn").onclick=sendToDrive;
 
-function saveLocal(){localStorage.setItem("tomte_befaring_v02",JSON.stringify(state))}
-function loadLocal(){try{const s=localStorage.getItem("tomte_befaring_v02");if(s)state=JSON.parse(s)}catch{}}
+function saveLocal(){localStorage.setItem("tomte_befaring_v03",JSON.stringify(state))}
+function loadLocal(){try{const s=localStorage.getItem("tomte_befaring_v03") || localStorage.getItem("tomte_befaring_v02");if(s)state={...emptyState(),...JSON.parse(s)}}catch{}}
 
-loadLocal(); setupVoice(); fill(); renderPhotos();
+loadLocal(); setupVoice(); fill(); renderPhotos(); updateCalc();
 </script>
 </body>
 </html>
