@@ -1,0 +1,1244 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071d36">
+  <title>Befaring | Tømte Mur og Byggkompetanse AS</title>
+
+  <style>
+    :root {
+      --navy:#071d36;
+      --blue:#1d4ed8;
+      --blue2:#2563eb;
+      --bg:#f4f7fb;
+      --card:#ffffff;
+      --line:#dbe3ef;
+      --muted:#667085;
+      --text:#111827;
+      --green:#16a34a;
+      --red:#dc2626;
+      --yellow:#f59e0b;
+      --radius:16px;
+    }
+
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    header {
+      background:var(--navy);
+      color:white;
+      padding:18px 16px 14px;
+      position:sticky;
+      top:0;
+      z-index:10;
+      box-shadow:0 4px 14px rgba(0,0,0,.15);
+    }
+
+    header h1 {
+      margin:0;
+      font-size:20px;
+      line-height:1.2;
+    }
+
+    header p {
+      margin:4px 0 0;
+      color:#c9d7ea;
+      font-size:13px;
+    }
+
+    main {
+      max-width:760px;
+      margin:0 auto;
+      padding:14px;
+      padding-bottom:90px;
+    }
+
+    .card {
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:14px;
+      margin:0 0 14px;
+      box-shadow:0 3px 12px rgba(16,24,40,.04);
+    }
+
+    .section-title {
+      font-size:18px;
+      margin:0 0 10px;
+      color:var(--navy);
+    }
+
+    .small {
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    label {
+      display:block;
+      font-weight:650;
+      font-size:13px;
+      margin:12px 0 6px;
+    }
+
+    input, textarea, select {
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:12px;
+      font:inherit;
+      background:#fff;
+      color:var(--text);
+    }
+
+    textarea {
+      min-height:96px;
+      resize:vertical;
+    }
+
+    .row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+
+    .btn {
+      border:0;
+      border-radius:12px;
+      padding:12px 14px;
+      font-weight:750;
+      font-size:15px;
+      background:var(--blue);
+      color:white;
+      cursor:pointer;
+      width:100%;
+    }
+
+    .btn.secondary {
+      background:white;
+      color:var(--blue);
+      border:1px solid var(--blue);
+    }
+
+    .btn.dark {
+      background:var(--navy);
+    }
+
+    .btn.danger {
+      background:var(--red);
+    }
+
+    .btn.light {
+      background:#eaf1ff;
+      color:var(--blue);
+    }
+
+    .btn:active { transform:scale(.99); }
+
+    .button-row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .status-pill {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#eaf1ff;
+      color:var(--blue);
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .warning {
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      color:#9a3412;
+      padding:10px;
+      border-radius:12px;
+      font-size:13px;
+      margin-top:10px;
+    }
+
+    .ok {
+      background:#ecfdf3;
+      border:1px solid #bbf7d0;
+      color:#166534;
+      padding:10px;
+      border-radius:12px;
+      font-size:13px;
+      margin-top:10px;
+    }
+
+    .tabs {
+      display:flex;
+      gap:8px;
+      overflow:auto;
+      padding:4px 0 12px;
+    }
+
+    .tab {
+      white-space:nowrap;
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:8px 12px;
+      background:white;
+      color:var(--muted);
+      font-weight:700;
+      font-size:13px;
+    }
+
+    .tab.active {
+      background:var(--blue);
+      color:white;
+      border-color:var(--blue);
+    }
+
+    .hidden { display:none !important; }
+
+    .list-item {
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+      margin:10px 0;
+      background:white;
+    }
+
+    .list-item h3 {
+      margin:0 0 4px;
+      font-size:16px;
+      color:var(--navy);
+    }
+
+    .list-item p {
+      margin:3px 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .photo-grid {
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:8px;
+      margin-top:10px;
+    }
+
+    .photo {
+      border:1px solid var(--line);
+      border-radius:12px;
+      overflow:hidden;
+      background:white;
+      position:relative;
+    }
+
+    .photo img {
+      display:block;
+      width:100%;
+      height:92px;
+      object-fit:cover;
+    }
+
+    .photo button {
+      position:absolute;
+      top:4px;
+      right:4px;
+      border:0;
+      background:rgba(0,0,0,.65);
+      color:white;
+      border-radius:50%;
+      width:24px;
+      height:24px;
+      font-weight:900;
+    }
+
+    .photo-caption {
+      padding:6px;
+      font-size:11px;
+      color:var(--muted);
+    }
+
+    .total-box {
+      background:#eef4ff;
+      border:1px solid #c7d7fe;
+      border-radius:14px;
+      padding:14px;
+      margin-top:12px;
+    }
+
+    .total-box strong {
+      font-size:22px;
+      color:var(--navy);
+    }
+
+    .bottom-bar {
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      background:white;
+      border-top:1px solid var(--line);
+      padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:8px;
+      z-index:20;
+    }
+
+    .bottom-bar button {
+      border:0;
+      background:#f2f5fa;
+      color:var(--navy);
+      border-radius:12px;
+      padding:10px 6px;
+      font-weight:750;
+      font-size:12px;
+    }
+
+    .bottom-bar button.active {
+      background:var(--navy);
+      color:white;
+    }
+
+    .mono {
+      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+      font-size:12px;
+      background:#f8fafc;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:10px;
+      overflow:auto;
+    }
+
+    #printArea { display:none; }
+
+    @media (max-width:520px) {
+      .row { grid-template-columns:1fr; }
+      .photo-grid { grid-template-columns:repeat(2, 1fr); }
+    }
+
+    @media print {
+      body { background:white; }
+      header, main, .bottom-bar { display:none !important; }
+      #printArea {
+        display:block !important;
+        padding:24px;
+        font-family:Arial,sans-serif;
+        color:#111;
+      }
+      #printArea h1 { font-size:24px; margin:0 0 4px; }
+      #printArea h2 { font-size:18px; margin:20px 0 8px; }
+      #printArea p, #printArea li { font-size:12px; line-height:1.4; }
+      #printArea .print-meta {
+        display:grid;
+        grid-template-columns:150px 1fr;
+        gap:4px 14px;
+        font-size:12px;
+      }
+      #printArea img {
+        width:150px;
+        height:110px;
+        object-fit:cover;
+        margin:6px;
+        border:1px solid #ddd;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>Befaringsverktøy</h1>
+  <p>Tømte Mur og Byggkompetanse AS</p>
+</header>
+
+<main>
+  <div class="tabs">
+    <button class="tab active" data-go="overview">Oversikt</button>
+    <button class="tab" data-go="import">Import</button>
+    <button class="tab" data-go="control">Kontroll</button>
+    <button class="tab" data-go="befaring">Befaring</button>
+    <button class="tab" data-go="bilder">Bilder</button>
+    <button class="tab" data-go="kalkyle">Kalkyle</button>
+    <button class="tab" data-go="utdata">Utdata</button>
+  </div>
+
+  <!-- OVERSIKT -->
+  <section id="screen-overview" class="screen">
+    <div class="card">
+      <h2 class="section-title">Befaringer</h2>
+      <p class="small">Befaringer er ikke prosjekter. Prosjekt opprettes først etter akseptert tilbud.</p>
+      <div class="button-row">
+        <button class="btn" id="newInspectionBtn">+ Ny befaring</button>
+        <button class="btn secondary" id="importFileBtn">Åpne fil</button>
+      </div>
+      <input id="importFileInput" type="file" accept="application/json" class="hidden">
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">Lagrede befaringer</h2>
+      <div id="inspectionList"></div>
+    </div>
+  </section>
+
+  <!-- IMPORT -->
+  <section id="screen-import" class="screen hidden">
+    <div class="card">
+      <h2 class="section-title">Importer jobb fra Mittanbud</h2>
+      <p class="small">Kopier jobbdetaljer i Mittanbud. Lim inn alt her. Trykk deretter “Hent ut informasjon”.</p>
+
+      <label>Lim inn jobbdetaljer</label>
+      <textarea id="rawImport" placeholder="Lim inn tekst fra Mittanbud her..."></textarea>
+
+      <div class="button-row">
+        <button class="btn" id="parseBtn">Hent ut informasjon</button>
+        <button class="btn secondary" id="manualBtn">Fyll inn manuelt</button>
+      </div>
+
+      <div class="warning">
+        Bruk kopiert tekst som hovedmetode. Skjermbilde/OCR bygges senere.
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTROLL -->
+  <section id="screen-control" class="screen hidden">
+    <div class="card">
+      <h2 class="section-title">Kontroller informasjon</h2>
+      <p class="small">Systemet foreslår informasjon. Du kontrollerer før befaring opprettes.</p>
+
+      <label>Kunde / navn</label>
+      <input data-bind="customer.name" placeholder="F.eks. Jeanette">
+
+      <div class="row">
+        <div>
+          <label>Telefon</label>
+          <input data-bind="customer.phone" placeholder="+47 ...">
+        </div>
+        <div>
+          <label>E-post</label>
+          <input data-bind="customer.email" placeholder="navn@epost.no">
+        </div>
+      </div>
+
+      <label>Adresse</label>
+      <input data-bind="customer.address" placeholder="Gateadresse, postnummer og sted">
+
+      <div class="row">
+        <div>
+          <label>Kilde</label>
+          <select data-bind="source">
+            <option>Mittanbud</option>
+            <option>E-post</option>
+            <option>Telefon</option>
+            <option>Referanse</option>
+            <option>Annet</option>
+          </select>
+        </div>
+        <div>
+          <label>Status</label>
+          <select data-bind="status">
+            <option>Importert</option>
+            <option>Befaring planlagt</option>
+            <option>Befaring gjennomført</option>
+            <option>Tilbud skal lages</option>
+            <option>Tilbud sendt</option>
+            <option>Vunnet</option>
+            <option>Tapt</option>
+            <option>Arkiv</option>
+          </select>
+        </div>
+      </div>
+
+      <label>Jobbtittel</label>
+      <input data-bind="job.title" placeholder="F.eks. Reparasjon av ødelagte steinheller">
+
+      <label>Kundens beskrivelse</label>
+      <textarea data-bind="job.description" placeholder="Kundens tekst / jobbdetaljer"></textarea>
+
+      <label>Oppdragstype</label>
+      <input data-bind="job.type" placeholder="Mur / puss / fasade / trapp / steinheller / rehabilitering">
+
+      <button class="btn" id="createInspectionBtn">Opprett befaring</button>
+      <div id="controlWarnings"></div>
+    </div>
+  </section>
+
+  <!-- BEFARING -->
+  <section id="screen-befaring" class="screen hidden">
+    <div class="card">
+      <h2 class="section-title">Befaring</h2>
+      <p><span class="status-pill" id="inspectionNamePill">Ny befaring</span></p>
+
+      <label>Befaringsdato</label>
+      <input type="date" data-bind="inspection.date">
+
+      <label>Ansvarlig</label>
+      <input data-bind="inspection.responsible" placeholder="Fredrik">
+
+      <label>Observasjoner på stedet</label>
+      <textarea data-bind="inspection.observations" placeholder="Hva ser vi på stedet?"></textarea>
+
+      <label>Underlag / eksisterende forhold</label>
+      <textarea data-bind="inspection.substrate" placeholder="Underlag, skader, fukt, sprekker, løse flater..."></textarea>
+
+      <label>Adkomst / stillas / lift</label>
+      <textarea data-bind="inspection.access" placeholder="Adkomst, høyde, stillasbehov, rigg..."></textarea>
+
+      <label>Avfall / transport</label>
+      <textarea data-bind="inspection.waste" placeholder="Avfall, container, bortkjøring, parkering..."></textarea>
+
+      <label>Faglig vurdering</label>
+      <textarea data-bind="inspection.assessment" placeholder="Anbefalt løsning og metode"></textarea>
+
+      <label>Forbehold / risiko</label>
+      <textarea data-bind="inspection.risks" placeholder="Skjulte skader, vær, underlag, tilgang, materialvalg..."></textarea>
+
+      <label>Mål og mengder</label>
+      <textarea data-bind="inspection.measures" placeholder="m², løpemeter, antall trinn, høyde, bredde, dybde..."></textarea>
+    </div>
+  </section>
+
+  <!-- BILDER -->
+  <section id="screen-bilder" class="screen hidden">
+    <div class="card">
+      <h2 class="section-title">Bilder</h2>
+      <p class="small">Bildene komprimeres før lagring, slik at verktøyet fungerer bedre på mobil.</p>
+
+      <label>Kategori</label>
+      <select id="photoCategory">
+        <option>Oversikt</option>
+        <option>Skader</option>
+        <option>Detaljer</option>
+        <option>Adkomst</option>
+        <option>Underlag</option>
+        <option>Annet</option>
+      </select>
+
+      <label>Legg til bilder</label>
+      <input id="photoInput" type="file" accept="image/*" multiple>
+
+      <div id="photoGrid" class="photo-grid"></div>
+    </div>
+  </section>
+
+  <!-- KALKYLE -->
+  <section id="screen-kalkyle" class="screen hidden">
+    <div class="card">
+      <h2 class="section-title">Kalkyleinput</h2>
+      <p class="small">Dette er ikke regnskap. Dette er grunnlag før Tripletex-tilbud.</p>
+
+      <div class="row">
+        <div>
+          <label>Egne timer</label>
+          <input type="number" data-bind="estimate.ownHours" placeholder="0">
+        </div>
+        <div>
+          <label>Timepris intern kalkyle</label>
+          <input type="number" data-bind="estimate.hourRate" placeholder="650">
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Materialer eks. mva</label>
+          <input type="number" data-bind="estimate.materials" placeholder="0">
+        </div>
+        <div>
+          <label>Stillas / lift eks. mva</label>
+          <input type="number" data-bind="estimate.scaffold" placeholder="0">
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Avfall / container eks. mva</label>
+          <input type="number" data-bind="estimate.waste" placeholder="0">
+        </div>
+        <div>
+          <label>Transport / bom / parkering eks. mva</label>
+          <input type="number" data-bind="estimate.transport" placeholder="0">
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>UE / innleie eks. mva</label>
+          <input type="number" data-bind="estimate.subcontractor" placeholder="0">
+        </div>
+        <div>
+          <label>Diverse / utstyr eks. mva</label>
+          <input type="number" data-bind="estimate.other" placeholder="0">
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Buffer / påslag %</label>
+          <input type="number" data-bind="estimate.markup" placeholder="35">
+        </div>
+        <div>
+          <label>MVA %</label>
+          <input type="number" data-bind="estimate.vat" placeholder="25">
+        </div>
+      </div>
+
+      <div class="total-box">
+        <p class="small">Beregnet kostnad eks. mva</p>
+        <strong id="costTotal">0 kr</strong>
+        <p class="small">Anbefalt pris eks. mva: <b id="priceExVat">0 kr</b></p>
+        <p class="small">Anbefalt pris inkl. mva: <b id="priceIncVat">0 kr</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- UTDATA -->
+  <section id="screen-utdata" class="screen hidden">
+    <div class="card">
+      <h2 class="section-title">Tilbudsgrunnlag</h2>
+
+      <button class="btn" id="generateOutputBtn">Lag tilbudsgrunnlag</button>
+
+      <label>Tekst til Tripletex</label>
+      <textarea id="tripletexText" style="min-height:260px;"></textarea>
+
+      <div class="button-row">
+        <button class="btn" id="copyTripletexBtn">Kopier til Tripletex</button>
+        <button class="btn secondary" id="printBtn">Skriv ut / PDF</button>
+      </div>
+
+      <div class="button-row">
+        <button class="btn light" id="saveBtn">Lagre befaring</button>
+        <button class="btn light" id="exportBtn">Eksporter fil</button>
+      </div>
+
+      <div class="ok" id="saveStatus">Ikke lagret ennå.</div>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">Intern kontroll</h2>
+      <div id="missingChecks" class="mono"></div>
+    </div>
+  </section>
+</main>
+
+<div class="bottom-bar">
+  <button data-go="overview">Oversikt</button>
+  <button data-go="import">Ny/import</button>
+  <button data-go="utdata">Utdata</button>
+</div>
+
+<div id="printArea"></div>
+
+<script>
+const LS_INDEX = "tmb_befaring_v01_index";
+const LS_PREFIX = "tmb_befaring_v01_item_";
+
+let state = emptyState();
+let currentScreen = "overview";
+
+function emptyState() {
+  const today = new Date().toISOString().slice(0,10);
+  return {
+    id: cryptoRandomId(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    source: "Mittanbud",
+    status: "Importert",
+    rawImport: "",
+    name: "Ny befaring",
+    customer: {
+      name: "",
+      phone: "",
+      email: "",
+      address: ""
+    },
+    job: {
+      title: "",
+      description: "",
+      type: ""
+    },
+    inspection: {
+      date: today,
+      responsible: "Fredrik",
+      observations: "",
+      substrate: "",
+      access: "",
+      waste: "",
+      assessment: "",
+      risks: "",
+      measures: ""
+    },
+    estimate: {
+      ownHours: "",
+      hourRate: 650,
+      materials: "",
+      scaffold: "",
+      waste: "",
+      transport: "",
+      subcontractor: "",
+      other: "",
+      markup: 35,
+      vat: 25
+    },
+    images: [],
+    output: {
+      tripletexText: ""
+    }
+  };
+}
+
+function cryptoRandomId() {
+  if (window.crypto && crypto.getRandomValues) {
+    const a = new Uint32Array(2);
+    crypto.getRandomValues(a);
+    return "bef-" + a[0].toString(16) + a[1].toString(16);
+  }
+  return "bef-" + Date.now();
+}
+
+function go(screen) {
+  currentScreen = screen;
+  document.querySelectorAll(".screen").forEach(s => s.classList.add("hidden"));
+  document.getElementById("screen-" + screen).classList.remove("hidden");
+  document.querySelectorAll("[data-go]").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll('[data-go="' + screen + '"]').forEach(b => b.classList.add("active"));
+  render();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+document.addEventListener("click", e => {
+  const goBtn = e.target.closest("[data-go]");
+  if (goBtn) go(goBtn.dataset.go);
+});
+
+function getPath(obj, path) {
+  return path.split(".").reduce((o, k) => o ? o[k] : "", obj);
+}
+
+function setPath(obj, path, val) {
+  const parts = path.split(".");
+  let cur = obj;
+  for (let i=0; i<parts.length-1; i++) cur = cur[parts[i]];
+  cur[parts[parts.length-1]] = val;
+}
+
+document.addEventListener("input", e => {
+  const bind = e.target.dataset.bind;
+  if (!bind) return;
+  setPath(state, bind, e.target.value);
+  updateName();
+  updateEstimate();
+  markDirty();
+});
+
+function fillBoundFields() {
+  document.querySelectorAll("[data-bind]").forEach(el => {
+    const val = getPath(state, el.dataset.bind);
+    if (el.value !== String(val ?? "")) el.value = val ?? "";
+  });
+}
+
+function updateName() {
+  const customer = state.customer.name.trim();
+  const address = state.customer.address.trim();
+  const type = state.job.type.trim() || state.job.title.trim() || "Befaring";
+
+  let base = "";
+  if (customer && address) base = customer + " – " + shortAddress(address) + " – " + type;
+  else if (address) base = shortAddress(address) + " – " + type;
+  else if (customer) base = customer + " – " + type;
+  else base = type || "Ny befaring";
+
+  state.name = base;
+}
+
+function shortAddress(address) {
+  return address.split(",")[0].trim();
+}
+
+function parseMittanbud(text) {
+  const clean = (text || "").replace(/\r/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
+  const lines = clean.split("\n").map(l => l.trim()).filter(Boolean);
+
+  const emailMatch = clean.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-ZÆØÅ]{2,}/i);
+  const phoneMatch = clean.match(/(?:\+47\s*)?(?:\d[\s.-]?){8,}/);
+  const addressMatch = clean.match(/([A-ZÆØÅa-zæøå0-9 .'\-]+?\s+\d+[a-zA-Z]?(?:,\s*)?\d{4}\s+[A-ZÆØÅa-zæøå .'\-]+)/);
+
+  let title = "";
+  const omIndex = lines.findIndex(l => /^om jobben$/i.test(l));
+  if (omIndex >= 0 && lines[omIndex + 1]) title = lines[omIndex + 1];
+
+  if (!title) {
+    title = lines.find(l => /(reparasjon|puss|mur|fasade|trapp|stein|heller|skifer|flis|rehabilitering|pipe|garasje|grunnmur|betong)/i.test(l)) || "";
+  }
+
+  let type = inferType(title + " " + clean);
+
+  state.rawImport = clean;
+  state.source = "Mittanbud";
+  state.customer.email = emailMatch ? emailMatch[0].trim() : state.customer.email;
+  state.customer.phone = phoneMatch ? normalizePhone(phoneMatch[0]) : state.customer.phone;
+  state.customer.address = addressMatch ? addressMatch[1].replace(/\s+/g, " ").trim() : state.customer.address;
+  state.job.title = title || state.job.title;
+  state.job.type = type || state.job.type;
+  state.job.description = clean || state.job.description;
+
+  updateName();
+}
+
+function normalizePhone(phone) {
+  let p = phone.replace(/[^\d+]/g, "");
+  if (p.startsWith("47") && p.length === 10) p = "+" + p;
+  if (!p.startsWith("+47") && p.replace(/\D/g,"").length === 8) p = "+47 " + p;
+  return p.replace("+47", "+47 ").replace(/\s+/g, " ").trim();
+}
+
+function inferType(text) {
+  const t = (text || "").toLowerCase();
+  if (t.includes("steinhell") || t.includes("heller")) return "Steinheller";
+  if (t.includes("fasade")) return "Fasade";
+  if (t.includes("trapp")) return "Trapp";
+  if (t.includes("puss")) return "Puss";
+  if (t.includes("mur")) return "Mur";
+  if (t.includes("skifer")) return "Skifer";
+  if (t.includes("flis")) return "Flis";
+  if (t.includes("pipe")) return "Pipe";
+  if (t.includes("betong")) return "Betong";
+  return "";
+}
+
+document.getElementById("newInspectionBtn").addEventListener("click", () => {
+  state = emptyState();
+  document.getElementById("rawImport").value = "";
+  fillBoundFields();
+  go("import");
+});
+
+document.getElementById("manualBtn").addEventListener("click", () => {
+  state = emptyState();
+  go("control");
+});
+
+document.getElementById("parseBtn").addEventListener("click", () => {
+  const text = document.getElementById("rawImport").value;
+  parseMittanbud(text);
+  fillBoundFields();
+  go("control");
+});
+
+document.getElementById("createInspectionBtn").addEventListener("click", () => {
+  updateName();
+  saveInspection();
+  go("befaring");
+});
+
+function updateEstimate() {
+  const e = state.estimate;
+  const ownLabor = num(e.ownHours) * num(e.hourRate);
+  const cost = ownLabor + num(e.materials) + num(e.scaffold) + num(e.waste) + num(e.transport) + num(e.subcontractor) + num(e.other);
+  const priceExVat = cost * (1 + num(e.markup) / 100);
+  const priceIncVat = priceExVat * (1 + num(e.vat) / 100);
+
+  document.getElementById("costTotal").textContent = money(cost);
+  document.getElementById("priceExVat").textContent = money(priceExVat);
+  document.getElementById("priceIncVat").textContent = money(priceIncVat);
+
+  return { ownLabor, cost, priceExVat, priceIncVat };
+}
+
+function num(v) {
+  const n = parseFloat(String(v || "0").replace(",", "."));
+  return Number.isFinite(n) ? n : 0;
+}
+
+function money(n) {
+  return Math.round(n).toLocaleString("nb-NO") + " kr";
+}
+
+document.getElementById("photoInput").addEventListener("change", async e => {
+  const files = Array.from(e.target.files || []);
+  const category = document.getElementById("photoCategory").value;
+  for (const file of files) {
+    const dataUrl = await compressImage(file, 1200, 0.72);
+    state.images.push({
+      id: cryptoRandomId(),
+      category,
+      caption: category,
+      dataUrl
+    });
+  }
+  e.target.value = "";
+  saveInspection();
+  renderPhotos();
+});
+
+function compressImage(file, maxSize, quality) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = () => {
+        let w = img.width;
+        let h = img.height;
+        if (w > h && w > maxSize) {
+          h = Math.round(h * maxSize / w);
+          w = maxSize;
+        } else if (h >= w && h > maxSize) {
+          w = Math.round(w * maxSize / h);
+          h = maxSize;
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL("image/jpeg", quality));
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderPhotos() {
+  const grid = document.getElementById("photoGrid");
+  grid.innerHTML = "";
+  state.images.forEach(img => {
+    const div = document.createElement("div");
+    div.className = "photo";
+    div.innerHTML = `
+      <img src="${img.dataUrl}" alt="">
+      <button title="Slett">×</button>
+      <div class="photo-caption">${escapeHtml(img.category || "")}</div>
+    `;
+    div.querySelector("button").addEventListener("click", () => {
+      state.images = state.images.filter(x => x.id !== img.id);
+      saveInspection();
+      renderPhotos();
+    });
+    grid.appendChild(div);
+  });
+}
+
+document.getElementById("generateOutputBtn").addEventListener("click", () => {
+  generateOutput();
+  document.getElementById("tripletexText").value = state.output.tripletexText;
+  saveInspection();
+  renderChecks();
+});
+
+document.getElementById("tripletexText").addEventListener("input", e => {
+  state.output.tripletexText = e.target.value;
+  markDirty();
+});
+
+function generateOutput() {
+  const totals = updateEstimate();
+
+  const workPoints = smartBullets([
+    state.inspection.assessment,
+    state.inspection.observations
+  ]);
+
+  const riskPoints = smartBullets([
+    state.inspection.risks
+  ]);
+
+  state.output.tripletexText =
+`Vi viser til befaring og oversender tilbud på følgende arbeider.
+
+Kunde: ${state.customer.name || ""}
+Adresse: ${state.customer.address || ""}
+Oppdrag: ${state.job.title || state.job.type || ""}
+
+Arbeidet omfatter:
+${workPoints || "- Arbeider i henhold til befaring og nærmere avtalt omfang."}
+
+Ikke inkludert:
+- Arbeider utenfor beskrevet omfang.
+- Skjulte skader som ikke var synlige på befaring.
+- Eventuelle tilleggsarbeider som ikke er skriftlig avtalt.
+- Offentlige gebyrer, søknader eller tiltak som ikke er uttrykkelig avtalt.
+
+Forbehold:
+${riskPoints || "- Tilbudet forutsetter normal adkomst og at underlaget er egnet for avtalt utførelse."}
+- Endringer skal avklares skriftlig før utførelse.
+- Pris og endelig betalingsplan legges inn i Tripletex.
+
+Intern kalkyleinput:
+- Beregnet kostnad eks. mva: ${money(totals.cost)}
+- Anbefalt pris eks. mva: ${money(totals.priceExVat)}
+- Anbefalt pris inkl. mva: ${money(totals.priceIncVat)}
+`;
+}
+
+function smartBullets(parts) {
+  const text = parts.filter(Boolean).join("\n");
+  if (!text.trim()) return "";
+  const lines = text.split(/\n+/).map(x => x.trim()).filter(Boolean);
+  if (lines.length > 1) return lines.map(x => x.startsWith("-") ? x : "- " + x).join("\n");
+  const sentences = text.split(/(?<=[.!?])\s+/).map(x => x.trim()).filter(Boolean);
+  return sentences.map(x => x.startsWith("-") ? x : "- " + x).join("\n");
+}
+
+document.getElementById("copyTripletexBtn").addEventListener("click", async () => {
+  const text = document.getElementById("tripletexText").value || state.output.tripletexText;
+  try {
+    await navigator.clipboard.writeText(text);
+    alert("Tekst kopiert til utklippstavle.");
+  } catch {
+    prompt("Kopier teksten manuelt:", text);
+  }
+});
+
+document.getElementById("printBtn").addEventListener("click", () => {
+  if (!state.output.tripletexText) generateOutput();
+  buildPrintArea();
+  setTimeout(() => window.print(), 250);
+});
+
+function buildPrintArea() {
+  const totals = updateEstimate();
+  const photos = state.images.map(img => `<img src="${img.dataUrl}" alt="">`).join("");
+
+  document.getElementById("printArea").innerHTML = `
+    <h1>Befaringsrapport</h1>
+    <p><strong>Tømte Mur og Byggkompetanse AS</strong></p>
+    <div class="print-meta">
+      <strong>Befaring</strong><span>${escapeHtml(state.name)}</span>
+      <strong>Status</strong><span>${escapeHtml(state.status)}</span>
+      <strong>Kunde</strong><span>${escapeHtml(state.customer.name)}</span>
+      <strong>Telefon</strong><span>${escapeHtml(state.customer.phone)}</span>
+      <strong>E-post</strong><span>${escapeHtml(state.customer.email)}</span>
+      <strong>Adresse</strong><span>${escapeHtml(state.customer.address)}</span>
+      <strong>Kilde</strong><span>${escapeHtml(state.source)}</span>
+      <strong>Dato</strong><span>${escapeHtml(state.inspection.date)}</span>
+      <strong>Ansvarlig</strong><span>${escapeHtml(state.inspection.responsible)}</span>
+    </div>
+
+    <h2>Oppdrag</h2>
+    <p><strong>${escapeHtml(state.job.title || state.job.type)}</strong></p>
+    <p>${nl2br(state.job.description)}</p>
+
+    <h2>Observasjoner</h2>
+    <p>${nl2br(state.inspection.observations)}</p>
+
+    <h2>Underlag og adkomst</h2>
+    <p>${nl2br(state.inspection.substrate)}</p>
+    <p>${nl2br(state.inspection.access)}</p>
+
+    <h2>Mål og mengder</h2>
+    <p>${nl2br(state.inspection.measures)}</p>
+
+    <h2>Faglig vurdering</h2>
+    <p>${nl2br(state.inspection.assessment)}</p>
+
+    <h2>Forbehold / risiko</h2>
+    <p>${nl2br(state.inspection.risks)}</p>
+
+    <h2>Kalkyleinput</h2>
+    <p>Beregnet kostnad eks. mva: <strong>${money(totals.cost)}</strong></p>
+    <p>Anbefalt pris eks. mva: <strong>${money(totals.priceExVat)}</strong></p>
+    <p>Anbefalt pris inkl. mva: <strong>${money(totals.priceIncVat)}</strong></p>
+
+    <h2>Bilder</h2>
+    <div>${photos}</div>
+
+    <h2>Tekstgrunnlag til tilbud</h2>
+    <p>${nl2br(state.output.tripletexText)}</p>
+  `;
+}
+
+function escapeHtml(s) {
+  return String(s || "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function nl2br(s) {
+  return escapeHtml(s).replace(/\n/g, "<br>");
+}
+
+function saveInspection() {
+  updateName();
+  state.updatedAt = new Date().toISOString();
+  localStorage.setItem(LS_PREFIX + state.id, JSON.stringify(state));
+
+  const index = getIndex().filter(x => x.id !== state.id);
+  index.unshift({
+    id: state.id,
+    name: state.name,
+    status: state.status,
+    updatedAt: state.updatedAt,
+    address: state.customer.address,
+    title: state.job.title || state.job.type
+  });
+  localStorage.setItem(LS_INDEX, JSON.stringify(index.slice(0, 100)));
+
+  document.getElementById("saveStatus").textContent = "Lagret: " + new Date().toLocaleTimeString("nb-NO", {hour:"2-digit", minute:"2-digit"});
+  renderList();
+}
+
+function markDirty() {
+  document.getElementById("saveStatus").textContent = "Endringer ikke lagret.";
+}
+
+document.getElementById("saveBtn").addEventListener("click", saveInspection);
+
+function getIndex() {
+  try {
+    return JSON.parse(localStorage.getItem(LS_INDEX) || "[]");
+  } catch {
+    return [];
+  }
+}
+
+function loadInspection(id) {
+  const raw = localStorage.getItem(LS_PREFIX + id);
+  if (!raw) return alert("Fant ikke befaring.");
+  state = JSON.parse(raw);
+  fillBoundFields();
+  go("befaring");
+}
+
+function deleteInspection(id) {
+  if (!confirm("Slette lagret befaring fra denne enheten?")) return;
+  localStorage.removeItem(LS_PREFIX + id);
+  const index = getIndex().filter(x => x.id !== id);
+  localStorage.setItem(LS_INDEX, JSON.stringify(index));
+  renderList();
+}
+
+function renderList() {
+  const list = document.getElementById("inspectionList");
+  const index = getIndex();
+
+  if (!index.length) {
+    list.innerHTML = `<p class="small">Ingen lagrede befaringer på denne enheten ennå.</p>`;
+    return;
+  }
+
+  list.innerHTML = "";
+  index.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "list-item";
+    div.innerHTML = `
+      <h3>${escapeHtml(item.name)}</h3>
+      <p>${escapeHtml(item.title || "")}</p>
+      <p>${escapeHtml(item.address || "")}</p>
+      <p><span class="status-pill">${escapeHtml(item.status || "")}</span></p>
+      <div class="button-row">
+        <button class="btn light">Åpne</button>
+        <button class="btn danger">Slett</button>
+      </div>
+    `;
+    div.querySelector(".btn.light").addEventListener("click", () => loadInspection(item.id));
+    div.querySelector(".btn.danger").addEventListener("click", () => deleteInspection(item.id));
+    list.appendChild(div);
+  });
+}
+
+document.getElementById("exportBtn").addEventListener("click", () => {
+  saveInspection();
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = safeFileName(state.name) + ".json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+function safeFileName(name) {
+  return (name || "befaring")
+    .replace(/[^\wæøåÆØÅ\- ]+/g, "")
+    .replace(/\s+/g, "_")
+    .slice(0, 80);
+}
+
+document.getElementById("importFileBtn").addEventListener("click", () => {
+  document.getElementById("importFileInput").click();
+});
+
+document.getElementById("importFileInput").addEventListener("change", e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      state = JSON.parse(reader.result);
+      if (!state.id) state.id = cryptoRandomId();
+      saveInspection();
+      fillBoundFields();
+      go("befaring");
+    } catch {
+      alert("Kunne ikke åpne filen.");
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = "";
+});
+
+function renderChecks() {
+  const checks = [];
+  if (!state.customer.phone) checks.push("Mangler telefon.");
+  if (!state.customer.email) checks.push("Mangler e-post.");
+  if (!state.customer.address) checks.push("Mangler adresse.");
+  if (!state.job.title && !state.job.type) checks.push("Mangler jobbtittel/oppdragstype.");
+  if (!state.inspection.observations) checks.push("Mangler observasjoner.");
+  if (!state.inspection.assessment) checks.push("Mangler faglig vurdering.");
+  if (!state.inspection.risks) checks.push("Mangler forbehold/risiko.");
+  if (updateEstimate().cost <= 0) checks.push("Mangler kalkyleinput.");
+
+  document.getElementById("missingChecks").textContent =
+    checks.length ? checks.join("\n") : "OK: Grunnlaget er komplett nok for tilbudsutkast.";
+}
+
+function renderControlWarnings() {
+  const warnings = [];
+  if (!state.customer.phone) warnings.push("Telefon ikke funnet.");
+  if (!state.customer.email) warnings.push("E-post ikke funnet.");
+  if (!state.customer.address) warnings.push("Adresse ikke funnet.");
+  if (!state.job.title) warnings.push("Jobbtittel ikke funnet.");
+
+  const box = document.getElementById("controlWarnings");
+  if (!warnings.length) {
+    box.innerHTML = `<div class="ok">Import ser OK ut. Kontroller informasjonen og opprett befaring.</div>`;
+  } else {
+    box.innerHTML = `<div class="warning">${warnings.join("<br>")}</div>`;
+  }
+}
+
+function render() {
+  fillBoundFields();
+  updateName();
+  updateEstimate();
+  renderPhotos();
+  renderList();
+  renderControlWarnings();
+  renderChecks();
+
+  document.getElementById("inspectionNamePill").textContent = state.name;
+  document.getElementById("tripletexText").value = state.output.tripletexText || "";
+}
+
+renderList();
+fillBoundFields();
+go("overview");
+</script>
+</body>
+</html>
